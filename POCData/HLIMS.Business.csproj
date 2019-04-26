@@ -60,9 +60,6 @@
     <Compile Include="UnitOfWork\LoanUOW.cs" />
     <Compile Include="UnitOfWork\PropertyUOW.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TrainingProduct.cs" />
-    <Compile Include="TrainingProductManager.cs" />
-    <Compile Include="TrainingProductViewModel.cs" />
     <Compile Include="ViewModel\BankViewModel.cs" />
     <Compile Include="ViewModel\BorrowerViewModel.cs" />
     <Compile Include="ViewModel\LoanViewModel.cs" />

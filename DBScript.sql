@@ -1,0 +1,135 @@
+USE [master]
+GO
+
+/****** Object:  Database [HLIMSYSTEM]    Script Date: 26-04-2019 12:37:37 ******/
+CREATE DATABASE [HLIMSYSTEM]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'HLIMSYSTEM', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS\MSSQL\DATA\HLIMSYSTEM.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'HLIMSYSTEM_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS\MSSQL\DATA\HLIMSYSTEM_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+
+USE [HLIMSYSTEM]
+GO
+
+/****** Object:  Table [dbo].[tblBank]    Script Date: 26-04-2019 12:40:37 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tblBank](
+	[Id] [int] IDENTITY(1,100) NOT NULL,
+	[Name] [varchar](100) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+USE [HLIMSYSTEM]
+GO
+
+/****** Object:  Table [dbo].[tblBorrower]    Script Date: 26-04-2019 12:41:20 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tblBorrower](
+	[Id] [int] IDENTITY(101,100) NOT NULL,
+	[FirstName] [varchar](100) NULL,
+	[MiddleName] [varchar](100) NULL,
+	[LastName] [varchar](100) NULL,
+	[Gender] [int] NULL,
+	[Email] [varchar](100) NULL,
+	[Phone] [varchar](100) NULL,
+	[StreetAddress] [varchar](1000) NULL,
+	[MailingAddress] [varchar](1000) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [HLIMSYSTEM]
+GO
+
+/****** Object:  Table [dbo].[tblInsurence]    Script Date: 26-04-2019 12:41:32 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tblInsurence](
+	[Id] [int] IDENTITY(101,100) NOT NULL,
+	[Name] [varchar](100) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [HLIMSYSTEM]
+GO
+
+/****** Object:  Table [dbo].[tblLoan]    Script Date: 26-04-2019 12:41:42 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tblLoan](
+	[Id] [int] IDENTITY(101,100) NOT NULL,
+	[OriginalAmount] [numeric](18, 0) NULL,
+	[OriginalTenure] [numeric](18, 0) NULL,
+	[ReminingAmount] [numeric](18, 0) NULL,
+	[ReminingTenure] [numeric](18, 0) NULL,
+	[BorrowerId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[tblLoan]  WITH CHECK ADD  CONSTRAINT [FK_tblLoan_ToTable] FOREIGN KEY([BorrowerId])
+REFERENCES [dbo].[tblBorrower] ([Id])
+GO
+
+ALTER TABLE [dbo].[tblLoan] CHECK CONSTRAINT [FK_tblLoan_ToTable]
+GO
+
+
+USE [HLIMSYSTEM]
+GO
+
+/****** Object:  Table [dbo].[tblProperty]    Script Date: 26-04-2019 12:41:50 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tblProperty](
+	[Id] [int] IDENTITY(101,100) NOT NULL,
+	[Address] [varchar](1000) NULL,
+	[Type] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+

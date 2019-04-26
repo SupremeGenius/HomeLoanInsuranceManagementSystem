@@ -52,7 +52,7 @@ namespace POCData
         public List<Borrower> Get(Borrower entity)
         {
             List<Borrower> returnData = new List<Borrower>();
-            returnData = GetData();
+            returnData = createMockData();
 
             if (entity != null && !string.IsNullOrEmpty(entity.FirstName))
             {
@@ -70,7 +70,7 @@ namespace POCData
         {
             List<Borrower> list = new List<Borrower>();
             Borrower returnProduct = new Borrower();
-            list = GetData();
+            list = createMockData();
             returnProduct = list.Find(p => p.Id == productId);
             return returnProduct;
         }
@@ -92,7 +92,7 @@ namespace POCData
         }
 
 
-        private List<Borrower> CreateMockData()
+        private List<Borrower> createMockData()
         {
             List<Borrower> ret = new List<Borrower>();
             ret.Add(new Borrower { Id = 1, FirstName= "Sunirmal", LastName="Sikder" });
@@ -100,7 +100,7 @@ namespace POCData
             return ret;
 
         }
-        private List<Borrower> GetData()
+        private List<Borrower> getData()
         {
             List<Borrower> data = new List<Borrower>();
             using (var ctx = new HLIMSystemEntities())

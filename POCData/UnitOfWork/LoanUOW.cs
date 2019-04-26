@@ -32,7 +32,7 @@ namespace POCData
         public List<Loan> Get(Loan entity)
         {
             List<Loan> returnData = new List<Loan>();
-            returnData = getData();
+            //returnData = getData();
 
             //if (entity != null && !string.IsNullOrEmpty(entity.OurginalAmount))
             //{
