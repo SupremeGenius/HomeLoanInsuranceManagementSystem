@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HLIMSYSTEMModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblBank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblBorrower">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" />
+          <Property Name="Gender" Type="int" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="100" />
+          <Property Name="StreetAddress" Type="varchar" MaxLength="1000" />
+          <Property Name="MailingAddress" Type="varchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="tblInsurence">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblLoan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OriginalAmount" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OriginalTenure" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ReminingAmount" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ReminingTenure" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="BorrowerId" Type="int" />
+        </EntityType>
+        <EntityType Name="tblProperty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="1000" />
+          <Property Name="Type" Type="int" />
+        </EntityType>
+        <Association Name="FK_tblLoan_ToTable">
+          <End Role="tblBorrower" Type="Self.tblBorrower" Multiplicity="0..1" />
+          <End Role="tblLoan" Type="Self.tblLoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBorrower">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblLoan">
+              <PropertyRef Name="BorrowerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HLIMSYSTEMModel1StoreContainer">
+          <EntitySet Name="tblBank" EntityType="Self.tblBank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblBorrower" EntityType="Self.tblBorrower" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblInsurence" EntityType="Self.tblInsurence" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLoan" EntityType="Self.tblLoan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProperty" EntityType="Self.tblProperty" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblLoan_ToTable" Association="Self.FK_tblLoan_ToTable">
+            <End Role="tblBorrower" EntitySet="tblBorrower" />
+            <End Role="tblLoan" EntitySet="tblLoan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HLIMSYSTEMModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblBank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblBorrower">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="MailingAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblLoans" Relationship="Self.FK_tblLoan_ToTable" FromRole="tblBorrower" ToRole="tblLoan" />
+        </EntityType>
+        <EntityType Name="tblInsurence">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblLoan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OriginalAmount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OriginalTenure" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ReminingAmount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ReminingTenure" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BorrowerId" Type="Int32" />
+          <NavigationProperty Name="tblBorrower" Relationship="Self.FK_tblLoan_ToTable" FromRole="tblLoan" ToRole="tblBorrower" />
+        </EntityType>
+        <EntityType Name="tblProperty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_tblLoan_ToTable">
+          <End Role="tblBorrower" Type="Self.tblBorrower" Multiplicity="0..1" />
+          <End Role="tblLoan" Type="Self.tblLoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblBorrower">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblLoan">
+              <PropertyRef Name="BorrowerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HLIMSYSTEMEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBanks" EntityType="Self.tblBank" />
+          <EntitySet Name="tblBorrowers" EntityType="Self.tblBorrower" />
+          <EntitySet Name="tblInsurences" EntityType="Self.tblInsurence" />
+          <EntitySet Name="tblLoans" EntityType="Self.tblLoan" />
+          <EntitySet Name="tblProperties" EntityType="Self.tblProperty" />
+          <AssociationSet Name="FK_tblLoan_ToTable" Association="Self.FK_tblLoan_ToTable">
+            <End Role="tblBorrower" EntitySet="tblBorrowers" />
+            <End Role="tblLoan" EntitySet="tblLoans" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HLIMSYSTEMModel1StoreContainer" CdmEntityContainer="HLIMSYSTEMEntities1">
+          <EntitySetMapping Name="tblBanks">
+            <EntityTypeMapping TypeName="HLIMSYSTEMModel1.tblBank">
+              <MappingFragment StoreEntitySet="tblBank">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBorrowers">
+            <EntityTypeMapping TypeName="HLIMSYSTEMModel1.tblBorrower">
+              <MappingFragment StoreEntitySet="tblBorrower">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="StreetAddress" ColumnName="StreetAddress" />
+                <ScalarProperty Name="MailingAddress" ColumnName="MailingAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblInsurences">
+            <EntityTypeMapping TypeName="HLIMSYSTEMModel1.tblInsurence">
+              <MappingFragment StoreEntitySet="tblInsurence">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLoans">
+            <EntityTypeMapping TypeName="HLIMSYSTEMModel1.tblLoan">
+              <MappingFragment StoreEntitySet="tblLoan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OriginalAmount" ColumnName="OriginalAmount" />
+                <ScalarProperty Name="OriginalTenure" ColumnName="OriginalTenure" />
+                <ScalarProperty Name="ReminingAmount" ColumnName="ReminingAmount" />
+                <ScalarProperty Name="ReminingTenure" ColumnName="ReminingTenure" />
+                <ScalarProperty Name="BorrowerId" ColumnName="BorrowerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProperties">
+            <EntityTypeMapping TypeName="HLIMSYSTEMModel1.tblProperty">
+              <MappingFragment StoreEntitySet="tblProperty">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

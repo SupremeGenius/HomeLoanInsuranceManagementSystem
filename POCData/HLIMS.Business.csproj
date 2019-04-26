@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BC94338B-CB30-4B9C-8F01-E08595A77DED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HLIMS.Business</RootNamespace>
+    <AssemblyName>HLIMS.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\IInsurenceRepository.cs" />
+    <Compile Include="UnitOfWork\BankUOW.cs" />
+    <Compile Include="Entities\Insurence.cs" />
+    <Compile Include="Entities\Loan.cs" />
+    <Compile Include="UnitOfWork\BorrowerUOW.cs" />
+    <Compile Include="UnitOfWork\InsrenceUOW.cs" />
+    <Compile Include="UnitOfWork\Interfaces.cs" />
+    <Compile Include="UnitOfWork\LoanUOW.cs" />
+    <Compile Include="UnitOfWork\PropertyUOW.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrainingProduct.cs" />
+    <Compile Include="TrainingProductManager.cs" />
+    <Compile Include="TrainingProductViewModel.cs" />
+    <Compile Include="ViewModel\BankViewModel.cs" />
+    <Compile Include="ViewModel\BorrowerViewModel.cs" />
+    <Compile Include="ViewModel\LoanViewModel.cs" />
+    <Compile Include="ViewModel\PropertyViewModel.cs" />
+    <Compile Include="ViewModel\InsurenceViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HLIMS.Entities\HLIMS.Entities.csproj">
+      <Project>{4754f605-26cc-4258-84fd-12bdfcac3929}</Project>
+      <Name>HLIMS.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HLIMSEntity\HLIMS.Entity.csproj">
+      <Project>{11c41220-8ee8-4359-ba15-04fdfd948c1b}</Project>
+      <Name>HLIMS.Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\POCCommon\HLIMS.Common.csproj">
+      <Project>{1c94f065-c9cf-44a7-b0c7-66a94044b1b6}</Project>
+      <Name>HLIMS.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

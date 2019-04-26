@@ -1,0 +1,136 @@
+﻿@model POCData.BankViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.EventCommand)
+    @Html.HiddenFor(m => m.Mode)
+    @Html.HiddenFor(m => m.EventArgument)
+    if (Model.ISearchAreaVisible)
+    {
+        <div class="panel panel-primary">
+            <div class="panel panel-heading">
+                <h1 class="panel-title">Search For Products</h1>
+            </div>
+            <div class="panel panel-body">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SearchENtity.Name, "Bank Name")
+                    @Html.TextBoxFor(m => m.SearchENtity.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="panel panel-footer">
+                <button id="btnSearch" class="button btn-sm btn-primary" data-pdsa-action="search">
+                    @*<i class="glyphicon glyphicon-search"/>*@
+                    Search
+                </button>
+                <button id="btnReset" class="button btn-sm btn-primary" data-pdsa-action="reset">
+                    @*<i class="gliphicon glyphicon-share-alt"></i>*@
+                    Reset
+                </button>
+                <button id="btnAdd" class="button btn-sm btn-success" data-pdsa-action="add">Add</button>
+
+            </div>
+        </div>
+        //End Search Area
+    }
+    //Start Body
+    if (Model.IsDetailAreaVisible)
+    {
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 class="panel-title">Bank Informaton</h1>
+            </div>
+            <div class="panel-body">
+                @*Create Message Area*@
+                <div class="row">
+                    <div class="col-sm-12">
+                        @if (!Model.IsValid)
+                        {
+                            <div class="alert alert-danger alert-dismissable" role="alert">
+                                <button type="button" class="close" data-dissmiss="alert">
+                                    <span aria-hidden="true">
+                                        &times;
+                                    </span>
+                                    <span class="sr-only">
+                                        Close
+                                    </span>
+                                </button>
+                                @Html.ValidationSummary(false)
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Entity.Name, "Name")
+                    @Html.TextBoxFor(m => m.Entity.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <button name="btnSave" class="button btn-sm btn-primary" data-pdsa-action="save">
+                                Save
+                            </button>
+                            <button name="btnCancel" class="button btn-sm btn-primary" data-pdsa-action="cancel">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    //End Body
+
+    if (Model.IsListAreaVisible)
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-condensed table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th class="pdsa-action-button-column"></th>
+                        <th>ID</th>
+                        <th>Bank Name</th>
+                        <th class="pdsa-action-button-column"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Banks)
+                    {
+                        <tr>
+                            <td class="pdsa-action-button-column">
+                                <a href="#" class="btn btn-default btn-sm"
+                                   data-pdsa-action="edit" data-pdsa-val="@item.Id">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                            </td>
+                            <td>@item.Id</td>
+                            <td>@item.Name </td>
+                            <td class="pdsa-action-button-column">
+                                <a href="#" class="btn btn-default btn-sm" data-pdsa-action="delete"
+                                   data-pdsa-val="@item.Id"
+                                   onclick="return confirm('Delete This Bank?')">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        //End List Area
+    }
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("[data-pdsa-action]").on("click", function (e) {
+                e.preventDefault();
+                $("#EventCommand").val($(this).data("pdsa-action"));
+                $("#EventArgument").val($(this).data("pdsa-val"));
+                $("form").submit();
+            })
+        });
+    </script>
+}
