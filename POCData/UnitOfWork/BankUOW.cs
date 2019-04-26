@@ -9,6 +9,7 @@ using System.Web.Script.Serialization;
 
 using HLIMS.Entities;
 using Newtonsoft.Json;
+using HLIMS.Business.ServiceConnectors;
 
 namespace POCData
 {
@@ -104,46 +105,20 @@ namespace POCData
         private List<Bank> getData()
         {
             List<Bank> data = new List<Bank>();
-            using (var client= new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:25383/api/");
-                var responseTask = client.GetAsync("Bank");
-                
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var jsonString = result.Content.ReadAsStringAsync();
-                    jsonString.Wait();
-                    data = JsonConvert.DeserializeObject<List<Bank>>(jsonString.Result);
-                }
-                responseTask.Wait();
-            }
+            BankServiecConector service = new BankServiecConector();
+            data = service.GetData();
             return data;
         }
         private bool createBank(Bank bank)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:25383/api/");
-                var serializer = new JavaScriptSerializer();
-                var json = serializer.Serialize(bank);
-                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var postTask = client.PostAsync("Bank",stringContent).Result;
-            }
+            BankServiecConector service = new BankServiecConector();
+            service.Create(bank);
             return true;
         }
         private bool updateBank(Bank bank)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:25383/api/");
-                var serializer = new JavaScriptSerializer();
-                var json = serializer.Serialize(bank);
-                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var postTask = client.PutAsync("Bank", stringContent).Result;
-            }
+            BankServiecConector service = new BankServiecConector();
+            service.Update(bank);
             return true;
         }
         public bool Delete(BaseEntity entity)

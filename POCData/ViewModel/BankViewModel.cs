@@ -37,6 +37,9 @@ namespace POCData
                 }
                 else
                 {
+                    Bank bank = new Bank();
+                    bank.Name = Entity.Name;
+                    bank.Id = Convert.ToInt32(EventArgument);
                     mgr.Update(Entity);
                 }
                 ValidationErrors = mgr.validationError;

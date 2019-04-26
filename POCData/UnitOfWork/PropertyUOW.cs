@@ -9,7 +9,7 @@ using HLIMS.Entities;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
-
+using HLIMS.Business.ServiceConnectors;
 
 namespace POCData
 {
@@ -75,12 +75,6 @@ namespace POCData
             return ret;
 
         }
-
-        public bool Delete(BaseEntity entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Update(Property entity)
         {
             bool returnValue = false;
@@ -95,47 +89,26 @@ namespace POCData
         private List<Property> getData()
         {
             List<Property> data = new List<Property>();
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:25383/api/");
-                var responseTask = client.GetAsync("Property");
-
-                var result = responseTask.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var jsonString = result.Content.ReadAsStringAsync();
-                    jsonString.Wait();
-                    data = JsonConvert.DeserializeObject<List<Property>>(jsonString.Result);
-                }
-                responseTask.Wait();
-            }
+            PropertyServiecConector service = new PropertyServiecConector();
+            data = service.GetData();
             return data;
         }
 
         private bool createData(Property property)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:25383/api/");
-                var serializer = new JavaScriptSerializer();
-                var json = serializer.Serialize(property);
-                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                var postTask = client.PostAsync("Property", stringContent).Result;
-            }
+            PropertyServiecConector service = new PropertyServiecConector();
+            service.Create(property);
             return true;
         }
         private bool updateData(Property Property)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:25383/api/");
-                var serializer = new JavaScriptSerializer();
-                var json = serializer.Serialize(Property);
-                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var postTask = client.PutAsync("Property", stringContent).Result;
-            }
+            PropertyServiecConector service = new PropertyServiecConector();
+            service.Update(Property);
             return true;
+        }
+        public bool Delete(BaseEntity entity)
+        {
+            throw new NotImplementedException();
         }
 
     }

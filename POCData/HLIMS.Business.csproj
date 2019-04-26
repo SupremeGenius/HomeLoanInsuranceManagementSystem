@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\IInsurenceRepository.cs" />
+    <Compile Include="ServiceConnectors\PropertyServiecConector.cs" />
+    <Compile Include="ServiceConnectors\BankServiecConector.cs" />
+    <Compile Include="ServiceConnectors\ServiceConnctorBase.cs" />
     <Compile Include="UnitOfWork\BankUOW.cs" />
     <Compile Include="Entities\Insurence.cs" />
     <Compile Include="Entities\Loan.cs" />
